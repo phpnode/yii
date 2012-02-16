@@ -104,7 +104,7 @@ class CHttpResponse extends CComponent {
 	/**
 	 * @var string the format to use when sending the request.
 	 * Can be one of:
-	 * <li>raw - don't transform the output, this is hte default</li>
+	 * <li>raw - don't transform the output, this is the default</li>
 	 * <li>json - encode the data as JSON and set the appropriate headers</li>
 	 * <li>JSONP - encode the data as JSONP and set the appropriate headers</li>
 	 * <li>xml - encode the data as XML and set the appropriate headers</li>
