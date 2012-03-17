@@ -24,7 +24,7 @@ class NewEventSyntax extends CComponent {
 	public function on($eventName, $handler)
 	{
 		if (!isset($this->_eventHandlers[$eventName]))
-			$this->_eventHandlers[$eventName] = array();
+			$this->_eventHandlers[$eventName] = new CList();
 		$this->_eventHandlers[$eventName][] = $handler;
 		return $this; // chainable
 	}
