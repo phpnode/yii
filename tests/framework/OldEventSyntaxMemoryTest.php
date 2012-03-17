@@ -1,6 +1,6 @@
 <?php
 
-class NewEventSyntax extends CComponent {
+class OldEventSyntaxMemory extends CComponent {
 
 	private $_eventHandlers = array();
 
@@ -69,59 +69,20 @@ class NewEventSyntax extends CComponent {
 	}
 }
 
-class NewEventSyntaxTest extends CTestCase {
+class OldEventSyntaxMemoryTest extends CTestCase {
 	public function testEvents() {
-		$obj = new NewEventSyntax();
+		$obj = new OldEventSyntaxMemory();
 		$callback = function($event) {
 			// do nothing
 		};
-		$obj->onMockEvent = $callback; // traditional method
-		$obj->on("mockEvent",$callback); // new method
-		$iterations = 10000;
-		$startTime = microtime(true);
-		$startMemUsage = memory_get_usage();
-		for($i = 0; $i < $iterations; $i++ ) {
-			$obj->mockEvent();
-		}
-		$endMemUsage = memory_get_usage();
-		$endTime = microtime(true);
-		echo "Traditional: $iterations iterations in ".($endTime - $startTime)." seconds (".($endMemUsage - $startMemUsage).")\n";
-		$startTime = microtime(true);
-		for($i = 0; $i < $iterations; $i++ ) {
-			$obj->trigger("mockEvent");
-		}
-		$endTime = microtime(true);
-		echo "New Syntax: $iterations iterations in ".($endTime - $startTime)." seconds.\n";
-
-
-
-	}
-
-	public function testMultipleEvents() {
-		$obj = new NewEventSyntax();
-		$callback = function($event) {
-			// do nothing
-		};
-		$secondcallback = function($event) {
-			// do even more nothing
-		};
-		$obj->onMockEvent = $callback; // traditional method
-		$obj->onMockEvent = $secondcallback;
-		$obj->on("mockEvent",$callback); // new method
-		$obj->on("mockEvent", $secondcallback);
+		$obj->onMockEvent = $callback;
 		$iterations = 10000;
 		$startTime = microtime(true);
 		for($i = 0; $i < $iterations; $i++ ) {
 			$obj->mockEvent();
 		}
 		$endTime = microtime(true);
-		echo "2 Callbacks Traditional: $iterations iterations in ".($endTime - $startTime)." seconds.\n";
-		$startTime = microtime(true);
-		for($i = 0; $i < $iterations; $i++ ) {
-			$obj->trigger("mockEvent");
-		}
-		$endTime = microtime(true);
-		echo "2 Callbacks New Syntax: $iterations iterations in ".($endTime - $startTime)." seconds.\n";
+		echo "Old Syntax: $iterations iterations in ".($endTime - $startTime)." seconds (".memory_get_peak_usage()." bytes)\n";
 
 
 
