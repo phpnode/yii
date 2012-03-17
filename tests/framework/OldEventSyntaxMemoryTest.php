@@ -12,7 +12,7 @@ class OldEventSyntaxMemory extends CComponent {
 	public function mockEvent()
 	{
 		if($this->hasEventHandler('onMockEvent'))
-			$this->onMockEvent(new CEvent($this));
+			$this->onMockEvent(new CModelEvent($this));
 	}
 
 	/**
