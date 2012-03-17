@@ -79,13 +79,11 @@ class NewEventSyntaxTest extends CTestCase {
 		$obj->on("mockEvent",$callback); // new method
 		$iterations = 10000;
 		$startTime = microtime(true);
-		$startMemUsage = memory_get_usage();
 		for($i = 0; $i < $iterations; $i++ ) {
 			$obj->mockEvent();
 		}
-		$endMemUsage = memory_get_usage();
 		$endTime = microtime(true);
-		echo "Traditional: $iterations iterations in ".($endTime - $startTime)." seconds (".($endMemUsage - $startMemUsage).")\n";
+		echo "Traditional: $iterations iterations in ".($endTime - $startTime)." seconds\n";
 		$startTime = microtime(true);
 		for($i = 0; $i < $iterations; $i++ ) {
 			$obj->trigger("mockEvent");
