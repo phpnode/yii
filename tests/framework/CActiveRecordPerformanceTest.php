@@ -1,7 +1,7 @@
 <?php
 Yii::import("system.web.*");
 require_once __DIR__."/db/data/models.php";
-class CDbReaderPerformanceTest extends CTestCase {
+class CActiveRecordPerformanceTest extends CTestCase {
 	/**
 	 * @var CDbConnection
 	 */
@@ -38,12 +38,9 @@ class CDbReaderPerformanceTest extends CTestCase {
 
 	public function testSpeed() {
 		$startTime = microtime(true);
-		$reader = $this->_connection->createCommand("SELECT * FROM posts")->query();
-		$i = 0;
-		while(($row = $reader->read()) !== false) {
-			$post = Post::model()->populateRecord($row);
+		$models = Post::model()->findAll();
+		foreach($models as $i => $post) {
 			$this->assertEquals("post ".($i + 1),"$post->title");
-			$i++;
 		}
 		$endTime = microtime(true);
 		echo __CLASS__." in ".($endTime - $startTime)." seconds (".memory_get_peak_usage()." bytes)\n";
