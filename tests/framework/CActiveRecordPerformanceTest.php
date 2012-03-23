@@ -38,9 +38,12 @@ class CDbReaderPerformanceTest extends CTestCase {
 
 	public function testSpeed() {
 		$startTime = microtime(true);
-		$models = Post::model()->findAll();
-		foreach($models as $i => $post) {
+		$reader = $this->_connection->createCommand("SELECT * FROM posts")->query();
+		$i = 0;
+		while(($row = $reader->read()) !== false) {
+			$post = Post::model()->populateRecord($row);
 			$this->assertEquals("post ".($i + 1),"$post->title");
+			$i++;
 		}
 		$endTime = microtime(true);
 		echo __CLASS__." in ".($endTime - $startTime)." seconds (".memory_get_peak_usage()." bytes)\n";

@@ -1,7 +1,7 @@
 <?php
 Yii::import("system.web.*");
 require_once __DIR__."/db/data/models.php";
-class CDbReaderPerformanceTest extends CTestCase {
+class CDbDataReaderPerformanceTest extends CTestCase {
 	/**
 	 * @var CDbConnection
 	 */
